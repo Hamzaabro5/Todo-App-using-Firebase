@@ -2,13 +2,13 @@
 import {
     collection,
     addDoc,
-    getDocs,
+    getDocs, 
 
 
 } 
-from "https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js";
+from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
- import {db} from "./config.js";
+import {db} from "./config.js";
 
 const input = document.querySelector(`input`);
 const form = document.querySelector(`form`);
@@ -29,18 +29,36 @@ function renderTodo() {
     }
 }
 
-form.addEventListener(`submit` , async (event)=>{
-    event.preventDefault();
-    try {
-        const docRef = await addDoc(collection(db, "todo"), {
-          todo: input.value,
-        });
-        console.log("Document written with ID: ", docRef.id);
-      }
-      catch (e) {
-        console.error("Error adding document: ", e);
-      }
-    renderTodo()
-})
+
+
+form.addEventListener(`submit`, async (event) => {
+  event.preventDefault();
+  try {
+    const docRef = await addDoc(collection(db, "todo"), {
+      todo: input.value,
+      
+    });
+    console.log("Document written with ID: ", docRef.id);
+  } catch (e) {
+    console.error("Error adding document: ", e);
+    alert(e.message);
+  }
+  renderTodo();
+});
+
+
+async function getData() {
+  const querySnapshot = await getDocs(collection(db, "todo"));
+  querySnapshot.forEach((doc) => {
+  console.log(`${doc.id} => ${doc.data()}`);
+});
+console.log(arr);
+renderTodo()
+
+}
+
+getData()
+
+
 
 
