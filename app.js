@@ -4,7 +4,7 @@ import {
     addDoc,
     getDocs,
     deleteDoc,
-    // updateDoc, 
+    updateDoc, 
 
 
 } 
@@ -23,8 +23,13 @@ let arr = [];
 // Rendering Todo
 function renderTodo() {
   ul.innerHTML = "";
+  if (arr.length === 0) {
+    ul.innerHTML += `
+    <h2>No Data Found</h2>
+    `
+  }
   arr.push(input.value);
-  for (let i = 0; i < arr.length; i++) {
+  for (let i = 1; i < arr.length; i++) {
     ul.innerHTML += `
     <li>${arr[i].todo}
     <button class="deleteBtn">Delete</button>
@@ -87,3 +92,20 @@ deleteBtn.forEach((btn , index) => {
   });
 });
 // Deleting Todo
+
+
+
+// Edit Todo
+editBtn.forEach((btn , index) => {
+  btn.addEventListener(`click` , async ()=>{
+    const updatedTodo = prompt("enter new value");
+    const todoUpdate = doc(db, "todo", arr[index].id);
+    await updateDoc(todoUpdate, {
+      todo: updatedTodo,
+    });
+    console.log("Data updated");
+    arr[index].todo = updatedNewValue;
+    renderTodo()
+  });
+});
+// Edit Todo
