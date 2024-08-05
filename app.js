@@ -6,7 +6,7 @@ import {
 
 
 } 
-from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+from "https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js";
 
 import {db} from "./config.js";
 
