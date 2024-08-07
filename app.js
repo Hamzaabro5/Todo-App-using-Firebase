@@ -21,6 +21,7 @@ let arr = [];
 
 
 // Rendering Todo
+arr.push(input.value);
 function renderTodo() {
   ul.innerHTML = "";
   if (arr.length === 0) {
@@ -28,12 +29,11 @@ function renderTodo() {
     <h2>No Data Found</h2>
     `
   }
-  arr.push(input.value);
   for (let i = 1; i < arr.length; i++) {
     ul.innerHTML += `
     <li>${arr[i].todo}
-    <button class="deleteBtn">Delete</button>
-    <button class="editBtn">Edit</button> 
+    <button class="deleteBtn" data-index="${i}">Delete</button>
+    <button class="editBtn" data-index="${i}">Edit</button> 
     </li>
     `
     input.value = ``
@@ -80,32 +80,32 @@ getData()
 
 
 
-// Deleting Todo
-deleteBtn.forEach((btn , index) => {
-  btn.addEventListener(`click` , async ()=>{
-    console.log(arr[index]);
-    await deleteDoc(doc(db, "todo"));
-    console.log("Data deleted");
-    arr.splice(index, 1);
+// // Deleting Todo
+// deleteBtn.forEach((btn , i) => {
+//   btn.addEventListener(`click` , async (event)=>{
+//     console.log(arr[i]);
+//     await deleteDoc(doc(db, "todo"));
+//     console.log("Data deleted");
+//     arr.splice(i, 1);
+    
+//     renderTodo()
+//   });
+// });
+// // Deleting Todo
 
-    renderTodo()
-  });
-});
-// Deleting Todo
 
 
-
-// Edit Todo
-editBtn.forEach((btn , index) => {
-  btn.addEventListener(`click` , async ()=>{
-    const updatedTodo = prompt("enter new value");
-    const todoUpdate = doc(db, "todo", arr[index].id);
-    await updateDoc(todoUpdate, {
-      todo: updatedTodo,
-    });
-    console.log("Data updated");
-    arr[index].todo = updatedNewValue;
-    renderTodo()
-  });
-});
-// Edit Todo
+// // Edit Todo
+// editBtn.forEach((btn , index) => {
+//   btn.addEventListener(`click` , async ()=>{
+//     const updatedTodo = prompt("enter new value");
+//     const todoUpdate = doc(db, "todo", arr[index].id);
+//     await updateDoc(todoUpdate, {
+//       todo: updatedTodo,
+//     });
+//     console.log("Data updated");
+//     arr[index].todo = updatedTodo;
+//     renderTodo()
+//   });
+// });
+// // Edit Todo
